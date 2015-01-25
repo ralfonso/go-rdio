@@ -165,10 +165,10 @@ func (c *Client) Sign(signUrl string, params url.Values) string {
 }
 
 // Start the OAuth process by fetching a request token and url to send the user to
-func (c *Client) StartAuth() (url.Values, error) {
+func (c *Client) StartAuth(callbackUrl string) (url.Values, error) {
 	// Request token
 	params := url.Values{
-		"oauth_callback": []string{"oob"},
+		"oauth_callback": []string{callbackUrl},
 	}
 
 	body, err := c.SignedPost(RDIO_OAUTH_ENDPOINT+"request_token", params)

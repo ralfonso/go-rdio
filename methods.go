@@ -1039,6 +1039,27 @@ func (c *Client) getUserResponse(body []byte) (*User, error) {
 	return response.Result, nil
 }
 
+type status string
+
+type Response struct {
+	Status status
+}
+
+type UserResponse struct {
+	Response
+	Result []User
+}
+
+func (c *Client) GetResponse(body []byte, intf interface{}) error {
+	// parse into json
+	err := json.Unmarshal(body, &intf)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (c *Client) getUsersResponse(body []byte) ([]User, error) {
 	type Response struct {
 		Status string
